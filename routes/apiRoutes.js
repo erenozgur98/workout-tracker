@@ -13,7 +13,7 @@ router.get('/api/workouts', (req, res) => {
 });
 
 router.put('/api/workouts/:id', ({ body }, res) => {
-    db.Workout.findOneAndReplace({ _id: body.params.id }, { $push: { excercises: body }}, { new: true }, (err, workouts) => {
+    db.Workout.findOneAndUpdate( { _id: body.id } , { $push: { excercises: body }}, { new: true }, (err, workouts) => {
         if (err) throw err;
         res.json(workouts);
     });
