@@ -13,7 +13,7 @@ router.get('/api/workouts', (req, res) => {
 });
 
 router.put('/api/workouts/:id', ({ body }, res) => {
-    db.Workout.findOneAndReplace({ _id: mongojs.objectId(body.params.id)}, { $push: { excercises: body }}, { new: true }, (err, workouts) => {
+    db.Workout.findOneAndReplace({ _id: body.params.id }, { $push: { excercises: body }}, { new: true }, (err, workouts) => {
         if (err) throw err;
         res.json(workouts);
     });
@@ -38,15 +38,5 @@ router.get('/api/workouts/range', (req, res) => {
             res.status(400).json(err);
         });
 });
-
-// router.post('/api/workouts/bulk', ({ body }, res) => {
-//     Workout.insertMany(body)
-//         .then(dbWorkout => {
-//             res.json(dbWorkout);
-//         })
-//         .catch(err => {
-//             res.status(400).json(err);
-//         });
-// });
 
 module.exports = router;
